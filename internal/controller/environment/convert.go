@@ -20,7 +20,7 @@ import (
 	"sort"
 
 	v1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/core/v1alpha1"
-	"github.com/jz-wilson/crossplane-provider-growthbook/internal/clients/growthbook"
+	"github.com/jz-wilson/growthbook-go"
 )
 
 // createRequest builds the POST body, including the create-only id and
@@ -62,8 +62,22 @@ func updateRequest(p v1alpha1.EnvironmentParameters) growthbook.EnvironmentReque
 		Description:  p.Description,
 		ToggleOnList: p.ToggleOnList,
 		DefaultState: p.DefaultState,
-		Projects:     p.Projects,
+		// growthbook-go's Projects is *[]string so callers can clear the
+		// list with an explicit empty slice; nil omits the field. We
+		// preserve the provider's prior behaviour exactly here (an unset
+		// or empty spec.projects never touches the API's project list),
+		// so both nil and empty are treated as "omit".
+		Projects: projectsPtr(p.Projects),
 	}
+}
+
+// projectsPtr converts the spec's plain slice to growthbook-go's clear-on-
+// empty pointer, collapsing nil and empty to "omit" (see updateRequest).
+func projectsPtr(projects []string) *[]string {
+	if len(projects) == 0 {
+		return nil
+	}
+	return &projects
 }
 
 // observation maps the API object onto status.atProvider.

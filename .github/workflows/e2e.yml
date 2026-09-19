@@ -11,35 +11,18 @@ env:
   GROWTHBOOK_API_URL: http://localhost:3100/api
 
 jobs:
-  # Exercises the HTTP client against a real GrowthBook. Fast, no cluster.
-  integration:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-      - uses: actions/setup-go@v5
-        with:
-          go-version: ${{ env.GO_VERSION }}
-      - name: Start GrowthBook
-        run: docker compose -f e2e/docker-compose.yml up -d --wait
-      - name: Mint API key
-        run: |
-          KEY=$(e2e/bootstrap.sh)
-          echo "::add-mask::${KEY}"
-          echo "GROWTHBOOK_API_KEY=${KEY}" >> "$GITHUB_ENV"
-      - name: Integration tests
-        run: go test -tags integration -count=1 -v ./internal/clients/...
-      - name: GrowthBook logs on failure
-        if: failure()
-        run: docker compose -f e2e/docker-compose.yml logs --no-color growthbook | tail -200
-
   # Installs Crossplane and this provider into kind, points a ProviderConfig
   # at the GrowthBook container, applies every example, and waits for Ready
   # with uptest. Deletion is asserted too, so leaked resources fail the run.
+  #
+  # NOTE(growthbook-go): this used to be gated behind a separate
+  # "integration" job that ran the HTTP client's own integration tests
+  # (go test -tags integration ./internal/clients/...). That client now
+  # lives in github.com/jz-wilson/growthbook-go, which has its own
+  # docker-compose e2e/integration suite in its own CI, so there is
+  # nothing left here to test at that layer.
   uptest:
     runs-on: ubuntu-24.04
-    needs: integration
     env:
       UPTEST_VERSION: v2.2.0
       CROSSPLANE_VERSION: v2.4.0

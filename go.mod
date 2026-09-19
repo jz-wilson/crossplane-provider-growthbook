@@ -11,6 +11,7 @@ require (
 	github.com/crossplane/crossplane-runtime/v2 v2.4.0
 	github.com/crossplane/crossplane/apis/v2 v2.3.4
 	github.com/google/go-cmp v0.7.0
+	github.com/jz-wilson/growthbook-go v0.5.0
 	google.golang.org/grpc v1.82.1
 	k8s.io/api v0.35.3
 	k8s.io/apiextensions-apiserver v0.35.0
