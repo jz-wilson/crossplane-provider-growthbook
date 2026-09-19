@@ -29,7 +29,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/test"
 
 	v1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/core/v1alpha1"
-	"github.com/jz-wilson/crossplane-provider-growthbook/internal/clients/growthbook"
+	"github.com/jz-wilson/growthbook-go"
 )
 
 // fakeClient implements EnvironmentClient with pluggable behaviour.
@@ -190,7 +190,7 @@ func TestCreate(t *testing.T) {
 		t.Fatalf("e.Create(...): unexpected error %v", err)
 	}
 	wantReq := growthbook.EnvironmentRequest{
-		ID: envID, Description: ptr("Stage"), Projects: []string{"prj_1"}, Parent: ptr("production"),
+		ID: envID, Description: ptr("Stage"), Projects: &[]string{"prj_1"}, Parent: ptr("production"),
 	}
 	if diff := cmp.Diff(wantReq, gotReq); diff != "" {
 		t.Errorf("request body: -want, +got:\n%s", diff)

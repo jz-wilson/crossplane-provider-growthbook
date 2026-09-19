@@ -20,7 +20,7 @@ import (
 	"sort"
 
 	v1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/sdk/v1alpha1"
-	"github.com/jz-wilson/crossplane-provider-growthbook/internal/clients/growthbook"
+	"github.com/jz-wilson/growthbook-go"
 )
 
 // createRequest converts the desired spec into the create request body,

@@ -29,7 +29,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/test"
 
 	v1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/feature/v1alpha1"
-	"github.com/jz-wilson/crossplane-provider-growthbook/internal/clients/growthbook"
+	"github.com/jz-wilson/growthbook-go"
 )
 
 // fakeClient implements FeatureClient with pluggable behaviour.

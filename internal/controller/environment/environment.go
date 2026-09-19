@@ -39,7 +39,7 @@ import (
 
 	v1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/core/v1alpha1"
 	apisv1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/v1alpha1"
-	"github.com/jz-wilson/crossplane-provider-growthbook/internal/clients/growthbook"
+	"github.com/jz-wilson/growthbook-go"
 )
 
 const (

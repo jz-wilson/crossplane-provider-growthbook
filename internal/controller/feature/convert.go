@@ -20,7 +20,7 @@ import (
 	"sort"
 
 	v1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/feature/v1alpha1"
-	"github.com/jz-wilson/crossplane-provider-growthbook/internal/clients/growthbook"
+	"github.com/jz-wilson/growthbook-go"
 )
 
 // createRequest builds the POST body, including the create-only id and

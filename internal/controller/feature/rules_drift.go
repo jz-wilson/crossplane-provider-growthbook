@@ -20,7 +20,7 @@ import (
 	"strconv"
 
 	v1alpha1 "github.com/jz-wilson/crossplane-provider-growthbook/apis/feature/v1alpha1"
-	"github.com/jz-wilson/crossplane-provider-growthbook/internal/clients/growthbook"
+	"github.com/jz-wilson/growthbook-go"
 )
 
 // rulesUpToDate compares the desired rules against the observed ones. Rules
